@@ -36,7 +36,8 @@ of June 19, 2081.
 
 Examples:
 =========
-Assume the following table exists on two shards (shard 0 and shard 1):
+Assume the following table exists on two shards (shard 0 and shard 1), and that you have app logic to route
+queries to the correct shards:
 ```sql
 CREATE TABLE `tags` (
     `id`  BIGINT UNSIGNED NOT NULL,
@@ -62,3 +63,6 @@ To get `LAST_INSERT_ID` to work correctly, you can update the above statements t
 INSERT INTO tags (id, tag) VALUES (LAST_INSERT_ID(next_shard_id(0)), 'a');
 INSERT INTO tags (id, tag) VALUES (LAST_INSERT_ID(next_shard_id(1)), 'b');
 ```
+
+The queries above do NOT route data to the correct shards. This code assumes you
+have a consistent routing layer built in your app.
